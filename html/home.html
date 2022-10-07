@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Redoxmer Designer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.3.3.min.js"></script>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.3.3.min.js"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.3.3.min.js"
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">JCESR AI</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <h1>Redoxmer Designer</h1>
+
+    <p>Input the SMILES string for your molecule: <input type="text" id="smiles" value="O=C2c1ccccc1C(=O)N2"/>
+        <button type="button" class="btn btn-primary" onclick="compute()">Go!</button>
+    </p>
+
+
+    <h2>Molecular Properties</h2>
+
+    Properties of the molecules you evaluate
+
+    <div id="mol-view">
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm" id="mol-img">
+
+        </div>
+        <!--- GPR models for the HBE --->
+        <!--- Getting Naveen's G4MP2 --->
+        <div class="col-sm">
+            <table class="table">
+                <tr>
+                    <th>Oxidation Potential (V)</th>
+                    <td id="ip-val">TBD</td>
+                </tr>
+                <tr>
+                    <th>Reduction Potential (V)</th>
+                    <td id="ea-val">TBD</td>
+                </tr>
+                <tr>
+                    <th>G<sub>solv,ACN</sub> (kcal/mol)</th>
+                    <td id="gsolv-val">TBD</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <h2>Similar Molecules</h2>
+
+    <p>Molecules that you might also consider</p>
+
+    <script src="/static/redox.js"></script>
+
+</div>
+</body>
+</html>
