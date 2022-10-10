@@ -1,51 +1,21 @@
-from typing import Tuple, Optional
+"""Define the web application"""
 from pathlib import Path
 import logging
 
-from pydantic import BaseModel, Field
-from rdkit import Chem
-from rdkit.Chem import AllChem
-from rdkit.Chem.Draw import MolDraw2DSVG
 from fastapi import FastAPI
 from fastapi.websockets import WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, HTMLResponse
 
+from redoxweb.models import PredictionResult
+from redoxweb.utils import make_svg_from_smiles
+
 app = FastAPI()
-html_dir = Path(__file__).parent / 'html'
-app.mount("/static", StaticFiles(directory="static"), name="static")
+_my_dir = Path(__file__).parent
+html_dir = _my_dir / 'html'
+app.mount("/static", StaticFiles(directory=_my_dir / "static"), name="static")
 
 logger = logging.getLogger('app')
-
-
-class PredictionResult(BaseModel):
-    """Result of inference on a DLHub model"""
-
-    smiles: str = Field(..., help='SMILES string of molecule passed to the client')
-    key: str = Field(..., help='InChI key of the molecule')
-    model_name: str = Field(..., help='Name of the model which was invoked')
-    value: float = Field(..., help='Output value')
-    confidence_interval: Optional[Tuple[float, float]] = Field(None, help='Confidence intervals, if known')
-
-
-def _print_molecule(smiles) -> str:
-    """Print a molecule as an SVG
-
-    Args:
-        smiles (str): SMILES string of molecule to present
-    Returns:
-        (str): SVG rendering of molecule
-    """
-
-    # Compute 2D coordinates
-    mol = Chem.MolFromSmiles(smiles)
-    AllChem.Compute2DCoords(mol)
-
-    # Print out an SVG
-    rsvg = MolDraw2DSVG(256, 256)
-    rsvg.DrawMolecule(mol)
-    rsvg.FinishDrawing()
-    return rsvg.GetDrawingText().strip()
 
 
 @app.get("/")
@@ -56,13 +26,20 @@ def read_root():
 
 @app.get('/api/render')
 def render_molecule(smiles: str) -> HTMLResponse:
-    """Render a molecule"""
-    return HTMLResponse(_print_molecule(smiles))
+    """Render a molecule
+
+    Args:
+        smiles: SMILES string of the molecule to be rendered
+    """
+    return HTMLResponse(make_svg_from_smiles(smiles))
 
 
 @app.websocket('/ws')
 async def result_messenger(socket: WebSocket):
     """Open a socket connection that will manage sending results to-and-from the system
+
+    Clients send the SMILES string of the molecule they want to evaluate and receive the results of
+    computations as they finish.
 
     Args:
         socket: The websocket created for this particular session

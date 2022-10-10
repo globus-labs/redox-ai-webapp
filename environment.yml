@@ -7,9 +7,13 @@ dependencies:
   - python==3.9.*
   - fastapi==0.85.*
   - rdkit==2022.03.2
-  - pip
+
+  # Testing
+  - pytest
 
   # Dependencies for projects not yet on conda
+  - pip
   - pip:
       - foundry_ml
       - dlhub_sdk
+      - -e .
