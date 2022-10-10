@@ -3,13 +3,13 @@ channels:
   - defaults
   - conda-forge
 dependencies:
-# Core dependencies
+  # Core dependencies
   - python==3.9.*
   - fastapi==0.85.*
   - rdkit==2022.03.2
   - pip
 
-    # Dependencies for projects not yet on conda
+  # Dependencies for projects not yet on conda
   - pip:
       - foundry_ml
       - dlhub_sdk
