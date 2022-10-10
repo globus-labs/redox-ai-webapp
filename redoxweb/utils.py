@@ -1,3 +1,4 @@
+"""Misc utility functions"""
 from rdkit import Chem
 from rdkit.Chem import AllChem
 from rdkit.Chem.Draw import MolDraw2DSVG
