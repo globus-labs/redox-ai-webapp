@@ -15,5 +15,5 @@ conda env create --file environment.yml
 Launch the application using uvicorn:
 
 ```commandline
-uvicorn app:app --reload
+uvicorn redoxweb.app:app --reload
 ```
