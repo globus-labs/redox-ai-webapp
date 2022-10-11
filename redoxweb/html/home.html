@@ -16,7 +16,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </head>
-<body>
+<body onload="initTable()">
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand" href="#">JCESR AI</a>
@@ -63,10 +63,6 @@
         <!--- Getting Naveen's G4MP2 --->
         <div class="col-sm">
             <table class="table" id="ml-table">
-                <tr id="solv_ml">
-                    <th>G<sub>solv,ACN</sub> (kcal/mol)</th>
-                    <td>TBD</td>
-                </tr>
             </table>
         </div>
     </div>

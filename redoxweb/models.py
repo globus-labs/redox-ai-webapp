@@ -11,6 +11,7 @@ class PredictionResult(BaseModel):
     smiles: str = Field(..., help='SMILES string of molecule passed to the client')
     model_name: str = Field(..., help='Name of the model which was invoked')
     value: float = Field(..., help='Output value')
+    value_str: float = Field(..., help='Output value in string format')
     confidence_interval: Optional[Tuple[float, float]] = Field(None, help='Confidence intervals, if known')
 
 
@@ -20,6 +21,7 @@ class PropertyModel(BaseModel):
     id: str = Field(..., help='Short name of the molecules')
     name: str = Field(..., help='Name of the property being evaluated')
     units: str = Field(..., help='Units of the molecule')
+    format: str = Field(".2f", help="Format to use for the output value")
 
     def _run(self, smiles: str) -> float:
         """Predict the property of a molecule
@@ -34,8 +36,10 @@ class PropertyModel(BaseModel):
     def run(self, smiles: str) -> PredictionResult:
         """Run the model and return a formatted result object"""
 
+        value = self._run(smiles)
         return PredictionResult(
             smiles=smiles,
             model_name=self.id,
-            value=self._run(smiles)
+            value=value,
+            value_str=f"{{:{self.format}}}".format(value)
         )
