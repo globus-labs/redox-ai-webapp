@@ -7,7 +7,7 @@ from fastapi.websockets import WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, HTMLResponse
 
-from redoxweb.models import PredictionResult, PropertyModel
+from redoxweb.models import PropertyModel
 from redoxweb.utils import make_svg_from_smiles
 from redoxweb.config import models
 
