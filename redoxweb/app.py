@@ -7,8 +7,9 @@ from fastapi.websockets import WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, HTMLResponse
 
-from redoxweb.models import PredictionResult
+from redoxweb.models import PredictionResult, PropertyModel
 from redoxweb.utils import make_svg_from_smiles
+from redoxweb.config import models
 
 app = FastAPI()
 _my_dir = Path(__file__).parent
@@ -34,6 +35,12 @@ def render_molecule(smiles: str) -> HTMLResponse:
     return HTMLResponse(make_svg_from_smiles(smiles))
 
 
+@app.get('/api/models')
+def list_models() -> list[PropertyModel]:
+    """List out all models available with our service"""
+    return models
+
+
 @app.websocket('/ws')
 async def result_messenger(socket: WebSocket):
     """Open a socket connection that will manage sending results to-and-from the system
@@ -55,13 +62,9 @@ async def result_messenger(socket: WebSocket):
             msg = await socket.receive_json()
             smiles = msg['smiles']
 
-            # Send a result back
-            result = PredictionResult(
-                smiles=smiles,
-                key='aaa' * 4,
-                model_name='solv_ml',
-                value=1.
-            )
-            await socket.send_text(result.json())
+            # Send a result back for each model
+            for model in models:
+                result = model.run(smiles)
+                await socket.send_text(result.json())
     except WebSocketDisconnect:
         logger.info(f'Disconnected from client at {socket.client.host}')

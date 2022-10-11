@@ -17,7 +17,8 @@ class PredictionResult(BaseModel):
 class PropertyModel(BaseModel):
     """Base class for a machine learning model that predicts a molecular property from SMILES"""
 
-    name: str = Field(..., help='Short name of the molecules')
+    id: str = Field(..., help='Short name of the molecules')
+    name: str = Field(..., help='Name of the property being evaluated')
     units: str = Field(..., help='Units of the molecule')
 
     def _run(self, smiles: str) -> float:
@@ -35,6 +36,6 @@ class PropertyModel(BaseModel):
 
         return PredictionResult(
             smiles=smiles,
-            model_name=self.name,
+            model_name=self.id,
             value=self._run(smiles)
         )

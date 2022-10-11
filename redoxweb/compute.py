@@ -9,8 +9,9 @@ from redoxweb.models import PropertyModel
 class LogPModel(PropertyModel):
     """Compute LogP using Crippen's method"""
 
-    name = "logp"
+    id = "logp"
     units = ""
+    name = "LogP"
 
     def _run(self, smiles: str) -> float:
         mol = Chem.MolFromSmiles(smiles)
@@ -20,8 +21,9 @@ class LogPModel(PropertyModel):
 class MolecularWeightModel(PropertyModel):
     """Compute the molecular weight of a molecule"""
 
-    name = "molwt"
+    id = "molwt"
     units = "g/mol"
+    name = "Molecular Weight"
 
     def _run(self, smiles: str) -> float:
         mol = Chem.MolFromSmiles(smiles)
