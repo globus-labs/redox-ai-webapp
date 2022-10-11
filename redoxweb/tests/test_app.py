@@ -1,4 +1,5 @@
 from fastapi.testclient import TestClient
+from pytest import mark
 
 from redoxweb.app import app
 from redoxweb.config import models
@@ -21,6 +22,7 @@ def test_models():
     assert len(result.json()) == len(models)
 
 
+@mark.timeout(10)
 def test_compute():
     with test_app.websocket_connect("/ws") as ws:
         ws.send_json({"smiles": "C"})
