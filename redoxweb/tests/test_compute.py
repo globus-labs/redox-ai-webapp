@@ -1,9 +1,4 @@
-from dlhub_sdk import DLHubClient
-
 from redoxweb.compute import LogPModel, MolecularWeightModel, SolvationEnergyModel
-
-
-client = DLHubClient()
 
 
 def test_logp():
