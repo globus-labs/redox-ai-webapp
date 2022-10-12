@@ -8,6 +8,10 @@ jobs:
     strategy:
       max-parallel: 5
 
+    env:
+      DLHUB_CLIENT_ID: ${{ secrets.DLHUB_CLIENT_ID }}
+      DLHUB_CLIENT_SECRET: ${{ secrets.DLHUB_CLIENT_SECRET }}
+
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python

@@ -11,7 +11,7 @@ class PredictionResult(BaseModel):
     smiles: str = Field(..., help='SMILES string of molecule passed to the client')
     model_name: str = Field(..., help='Name of the model which was invoked')
     value: float = Field(..., help='Output value')
-    value_str: float = Field(..., help='Output value in string format')
+    value_str: str = Field(..., help='Output value in string format')
     confidence_interval: Optional[Tuple[float, float]] = Field(None, help='Confidence intervals, if known')
 
 

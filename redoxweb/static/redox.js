@@ -40,6 +40,9 @@ function compute() {
     axios.get("/api/render", {params: {smiles: mol}})
         .then(function (res) {
             document.getElementById("mol-img").innerHTML = res.data
+
+            // Request its properties
+            socket.send(JSON.stringify({"smiles": mol}))
         })
 
     // Clear the table
@@ -47,9 +50,6 @@ function compute() {
     for (const row of table.rows) {
         row.cells[1].innerHTML = "TBD"
     }
-
-    // Request its properties
-    socket.send(JSON.stringify({"smiles": mol}))
 }
 
 
