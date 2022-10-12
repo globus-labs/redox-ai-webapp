@@ -23,7 +23,7 @@ def get_dlhub_client() -> DLHubClient:
         An already-authenticated client
     """
 
-    if 'DLHUB_SECRET' in os.environ:
+    if 'DLHUB_CLIENT_SECRET' in os.environ:
         # Pull the client information from the environment
         client_id = os.environ['DLHUB_CLIENT_ID']
         client_secret = os.environ['DLHUB_CLIENT_SECRET']
