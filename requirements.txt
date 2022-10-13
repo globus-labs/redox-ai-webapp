@@ -3,3 +3,4 @@ uvicorn
 fastapi
 rdkit-pypi
 dlhub_sdk
+six
