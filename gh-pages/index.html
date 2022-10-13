@@ -1,0 +1,43 @@
+---
+# Feel free to add content and custom Front Matter to this file.
+# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
+
+layout: home
+---
+
+<h1>Redoxmer Designer</h1>
+
+<p>Input the SMILES string for your molecule: <input type="text" id="smiles" value="O=C2c1ccccc1C(=O)N2"/>
+<button type="button" class="btn btn-primary" onclick="compute()">Go!</button>
+</p>
+
+
+<h2>Molecular Properties</h2>
+
+Properties of the molecules you evaluate
+
+<div id="mol-view">
+
+</div>
+
+<div class="row">
+<div class="col-sm" id="mol-img">
+
+</div>
+<!--- GPR models for the HBE --->
+<!--- Getting Naveen's G4MP2 --->
+<div class="col-sm">
+    <table class="table" id="ml-table">
+    </table>
+</div>
+</div>
+
+<h2>Similar Molecules</h2>
+
+<p>Molecules that you might also consider</p>
+
+<script src="/static/redox.js"></script>
+<script>
+    window.onload = initTable()
+</script>
+

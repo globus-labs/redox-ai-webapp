@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from fastapi.websockets import WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 from redoxweb.models import PropertyModel
 from redoxweb.utils import make_svg_from_smiles
@@ -15,6 +16,11 @@ app = FastAPI()
 _my_dir = Path(__file__).parent
 html_dir = _my_dir / 'html'
 app.mount("/static", StaticFiles(directory=_my_dir / "static"), name="static")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"]
+)
 
 logger = logging.getLogger('app')
 
