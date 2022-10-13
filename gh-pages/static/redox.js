@@ -1,7 +1,7 @@
 'use strict';
 
 // We use a websocket to send results from the web server as they complete
-const server = "127.0.0.1:8000"
+const server = "redox-web-app.herokuapp.com"
 var socket = new WebSocket(`ws://${server}/ws`)
 
 // Get the current molecule
