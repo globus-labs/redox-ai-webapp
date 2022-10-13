@@ -1,7 +1,8 @@
 'use strict';
 
 // We use a websocket to send results from the web server as they complete
-var socket = new WebSocket("ws://127.0.0.1:8000/ws")
+const server = "127.0.0.1:8000"
+var socket = new WebSocket(`ws://${server}/ws`)
 
 // Get the current molecule
 function activeMolecule() {
@@ -10,7 +11,7 @@ function activeMolecule() {
 
 // Function that initialize the tables
 function initTable() {
-    axios.get("/api/models").then(function (res) {
+    axios.get(`http://${server}/api/models`).then(function (res) {
         var table = document.getElementById("ml-table");
         for (const model of res.data) {
             var row = table.insertRow(-1)
@@ -37,7 +38,7 @@ function compute() {
     var mol = activeMolecule();
 
     // Render it as an SVG
-    axios.get("/api/render", {params: {smiles: mol}})
+    axios.get(`http://${server}/api/render`, {params: {smiles: mol}})
         .then(function (res) {
             document.getElementById("mol-img").innerHTML = res.data
 
