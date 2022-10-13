@@ -1,0 +1,4 @@
+gunicorn
+fastapi
+rdkit-pypi
+dlhub_sdk
