@@ -2,7 +2,7 @@
 
 // We use a websocket to send results from the web server as they complete
 const server = "redox-web-app.herokuapp.com"
-var socket = new WebSocket(`ws://${server}/ws`)
+var socket = new WebSocket(`wss://${server}/ws`)
 
 // Get the current molecule
 function activeMolecule() {
@@ -11,7 +11,7 @@ function activeMolecule() {
 
 // Function that initialize the tables
 function initTable() {
-    axios.get(`http://${server}/api/models`).then(function (res) {
+    axios.get(`https://${server}/api/models`).then(function (res) {
         var table = document.getElementById("ml-table");
         for (const model of res.data) {
             var row = table.insertRow(-1)
@@ -38,7 +38,7 @@ function compute() {
     var mol = activeMolecule();
 
     // Render it as an SVG
-    axios.get(`http://${server}/api/render`, {params: {smiles: mol}})
+    axios.get(`https://${server}/api/render`, {params: {smiles: mol}})
         .then(function (res) {
             document.getElementById("mol-img").innerHTML = res.data
 
